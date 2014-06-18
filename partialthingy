@@ -1,0 +1,7 @@
+<!--
+<tags>
+	<% Tag.all.each do |t|%>
+	<a href="/tags/<%=t.text%>"><%=t.text%></a>
+	<% end %>
+</tags>
+-->

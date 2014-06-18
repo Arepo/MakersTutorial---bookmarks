@@ -1,6 +1,3 @@
-require 'sinatra'
-require 'data_mapper'
-
 class Tag
 
 	include DataMapper::Resource

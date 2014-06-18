@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Link do 
 
-	context "demonstration of how datamapper works" do
+	context "demonstration of how datamapper works" do #(ie testing datamapper itself - not normal practice)
 
 		it 'should be created and then retrieved from the db' do
 			expect(Link.count).to eq(0)
