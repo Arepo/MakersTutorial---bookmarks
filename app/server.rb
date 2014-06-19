@@ -75,4 +75,8 @@ post '/sessions' do
 	end
 end
 
+delete '/sessions' do
+	session[:user_id] = nil
+	flash.now[:notice] = "Good bye!"
+end
 
