@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'data_mapper'
 require 'sinatra/flash'
-require 'sinatra/partial'
+# require 'sinatra/partial'
 require './app/models/link'
 require './app/models/tag'
 require './app/models/user'

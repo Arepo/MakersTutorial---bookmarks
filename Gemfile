@@ -12,5 +12,5 @@ group :development, :test do
 	gem "rspec"
 	gem 'database_cleaner'
 	gem 'capybara'
-  gem 'debugger'
+ 	gem 'debugger'
 end
