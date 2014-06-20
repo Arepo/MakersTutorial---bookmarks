@@ -66,3 +66,18 @@ feature 'User signs out' do
 
 end
 
+feature 'User forgets their password' do
+
+	before(:each) do
+		User.create(email: "test@test.com",
+					password: "test",
+					password_confirmation: 'test')
+	end
+
+	scenario 'and requests a new password' do
+		
+	end
+
+end
+
+
