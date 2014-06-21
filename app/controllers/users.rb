@@ -27,3 +27,18 @@ post '/users' do
     # form again
 	end
 end
+
+post '/users/reset_password' do
+	email = params[:email_reset]
+	User.first(email: email).generate_token
+	"You've been sent an email with a link to reset your password"
+end
+
+get '/users/reset_password' do
+	@user = User.first(password_token: params[:token])
+	if Time.now - @user.password_token_timestamp < 3600
+		erb :new_password
+	else
+		"Sorry #{@user.email}, your reset link has expired. Would you like to request a new one?"
+	end
+end

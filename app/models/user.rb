@@ -13,6 +13,8 @@ class User
   # It's Text and not String because String holds 
   # 50 characters by default
   # and it's not enough for the hash and salt
+  property :password_token, Text
+  property :password_token_timestamp, Time
 
 	attr_reader :password
 	attr_accessor :password_confirmation
@@ -22,6 +24,12 @@ class User
   # and password_confirmation are the same
   # read more about it in the documentation
   # http://datamapper.org/docs/validations.html
+
+  def generate_token
+      self.password_token = (1..64).map{('A'..'Z').to_a.sample}.join
+      self.password_token_timestamp = Time.now
+      self.save
+  end
 
 	def password=(password)
 		@password = password

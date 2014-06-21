@@ -69,13 +69,32 @@ end
 feature 'User forgets their password' do
 
 	before(:each) do
-		User.create(email: "test@test.com",
+		@user = User.create(email: "test@test.com",
 					password: "test",
 					password_confirmation: 'test')
+
 	end
 
-	scenario 'and requests a new password' do
-		
+	scenario 'and follows reset link within an hour' do
+		visit '/sessions/new'
+		fill_in 'email_reset', with: 'test@test.com'
+		click_button "Reset"
+		expect(page).to have_content("You've been sent an email with a link to reset your password")
+		token = User.first(email: "test@test.com").password_token
+		visit "/users/reset_password?token=#{token}"
+		expect(page).to have_content("Hello #{@user.email}, your password has been reset. Please enter your new password:")
+	end
+
+	scenario 'and follows reset link after an hour' do
+		visit '/sessions/new'
+		fill_in 'email_reset', with: 'test@test.com'
+		click_button "Reset"
+		expect(page).to have_content("You've been sent an email with a link to reset your password")
+		user = User.first(email: "test@test.com")
+		token = user.password_token
+		user.password_token_timestamp -= 3601 #doesn't seem to be updating the user db record? see User.all
+		visit "/users/reset_password?token=#{token}"
+		expect(page).to have_content("Sorry #{@user.email}, your reset link has expired. Would you like to request a new one?")
 	end
 
 end
